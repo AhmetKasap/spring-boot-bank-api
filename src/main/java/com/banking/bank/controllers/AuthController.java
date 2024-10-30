@@ -1,7 +1,7 @@
 package com.banking.bank.controllers;
 
 import com.banking.bank.dto.LoginDTO;
-import com.banking.bank.dto.UserDTO;
+import com.banking.bank.dto.RegisterDTO;
 import com.banking.bank.response.GenericResponse;
 import com.banking.bank.service.UserService;
 import lombok.Data;
@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Data
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/auth")
 public class AuthController {
 
-    private final UserService userService;
+    /*
+    *  private final UserService userService;
 
     @GetMapping
     public String test() {
@@ -21,8 +22,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public GenericResponse<UserDTO> register(@RequestBody UserDTO userDTO) {
-        UserDTO registered = userService.register(userDTO);
+    public GenericResponse<RegisterDTO> register(@RequestBody RegisterDTO userDTO) {
+        RegisterDTO registered = userService.register(userDTO);
         return GenericResponse.ok(registered,"cretead");
 
     }
@@ -33,6 +34,10 @@ public class AuthController {
         return ResponseEntity.ok(result);
 
     }
+    *
+    * */
+
+
 
 
 }

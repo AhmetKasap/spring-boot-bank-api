@@ -1,8 +1,11 @@
 package com.banking.bank.model;
 
-import com.banking.bank.dto.UserDTO;
+import com.banking.bank.dto.RegisterDTO;
 import com.banking.bank.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,11 +22,25 @@ public class UserEntity implements UserDetails {
     @GeneratedValue
     private Long id;
 
+    @NotBlank(message = "firstName cannot be required")
+    @Size(min = 3, max = 30, message = "firstName must be between 3 and 30 characters")
     private String firstName;
+
+    @NotBlank(message = "lastName cannot be required")
+    @Size(min = 3, max = 30, message = "lastName must be between 3 and 30 characters")
     private String lastName;
 
+    @NotBlank(message = "email cannot be required")
+    @Size(min = 3, max = 45, message = "email must be between 3 and 45 characters")
+    @Email(message = "Email should be valid")
     private String email;
+
+    @NotBlank(message = "username cannot be required")
+    @Size(min = 3, max = 30, message = "username must be between 3 and 30 characters")
     private String username;
+
+    @NotBlank(message = "password cannot be required")
+    @Size(min = 10, max = 50, message = "password must be between 10 and 50 characters")
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -57,8 +74,8 @@ public class UserEntity implements UserDetails {
 
 
 
-    public UserDTO toDTO() {
-        UserDTO dto = new UserDTO();
+    public RegisterDTO toDTO() {
+        RegisterDTO dto = new RegisterDTO();
         dto.setFirstName(this.firstName);
         dto.setLastName(this.lastName);
         dto.setEmail(this.email);

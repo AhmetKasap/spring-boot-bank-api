@@ -1,12 +1,11 @@
 package com.banking.bank.service;
 
 import com.banking.bank.dto.LoginDTO;
-import com.banking.bank.dto.UserDTO;
+import com.banking.bank.dto.RegisterDTO;
 import com.banking.bank.enums.Role;
 import com.banking.bank.model.UserEntity;
 import com.banking.bank.repositories.UserRepository;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +22,36 @@ public class UserService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
 
-    public UserDTO register(UserDTO userDTO) {
+
+    public RegisterDTO register(RegisterDTO registerDTO) {
+        UserEntity user = registerDTO.toEntity();
+
+        Optional<UserEntity> existingUser = userRepository.findByUsername(user.getUsername());
+
+        if(existingUser.isPresent()) {
+            throw new IllegalArgumentException("Username already exists");
+        }else {
+            UserEntity createdUser = userRepository.save(user);
+
+            return createdUser.toDTO();
+        }
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+    /*
+    * public RegisterDTO register(RegisterDTO userDTO) {
         UserEntity user = userDTO.toEntity();
 
         String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -56,6 +84,16 @@ public class UserService {
         }
 
     }
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * */
 
 
 
