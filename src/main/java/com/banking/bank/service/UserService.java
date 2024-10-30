@@ -1,13 +1,11 @@
 package com.banking.bank.service;
 
-import com.banking.bank.dto.LoginDTO;
 import com.banking.bank.dto.RegisterDTO;
-import com.banking.bank.enums.Role;
+import com.banking.bank.exception.APIError;
 import com.banking.bank.model.UserEntity;
 import com.banking.bank.repositories.UserRepository;
 import lombok.Data;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +27,7 @@ public class UserService {
         Optional<UserEntity> existingUser = userRepository.findByUsername(user.getUsername());
 
         if(existingUser.isPresent()) {
-            throw new IllegalArgumentException("Username already exists");
+            throw new APIError(501,"Username is already taken");
         }else {
             UserEntity createdUser = userRepository.save(user);
 
