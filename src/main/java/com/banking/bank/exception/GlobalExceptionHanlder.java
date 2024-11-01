@@ -19,8 +19,8 @@ public class GlobalExceptionHanlder {
     @Order(2)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {
-        //ErrorResponse errorResponse = new ErrorResponse(500, ex.getMessage());
-        ErrorResponse errorResponse = new ErrorResponse(500, "Api Error");
+        ErrorResponse errorResponse = new ErrorResponse(500, ex.getMessage());
+        //ErrorResponse errorResponse = new ErrorResponse(500, "Api Error");
 
         return ResponseEntity.status(500).body(errorResponse);
     }

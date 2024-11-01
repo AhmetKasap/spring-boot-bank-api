@@ -37,26 +37,4 @@ public class SecurityConfig {
 
 
 
-
-
-
-       /*
-
-        public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/login/**")
-                .permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        return httpSecurity.build();
-    }
-    */
-
-
 }

@@ -17,10 +17,7 @@ import java.util.Map;
 @RequestMapping("/auth")
 public class AuthController {
 
-
     private final AuthService authService;
-
-
 
     @PostMapping("/register")
     public GenericResponse<RegisterDTO> register(@Valid @RequestBody RegisterDTO registerDTO) {
@@ -39,9 +36,5 @@ public class AuthController {
         return GenericResponse.ok(result,"login successfully");
 
     }
-
-
-
-
 
 }

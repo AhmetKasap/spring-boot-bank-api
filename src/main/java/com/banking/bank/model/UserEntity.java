@@ -49,6 +49,7 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     Role role;
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {//"rolleri dönüyoruz
         return List.of(new SimpleGrantedAuthority(role.name()));
