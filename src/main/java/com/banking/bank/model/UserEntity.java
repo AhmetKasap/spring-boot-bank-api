@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,14 +34,16 @@ public class UserEntity implements UserDetails {
     @NotBlank(message = "email cannot be required")
     @Size(min = 3, max = 45, message = "email must be between 3 and 45 characters")
     @Email(message = "Email should be valid")
+    @Column(unique = true)
     private String email;
 
     @NotBlank(message = "username cannot be required")
     @Size(min = 3, max = 30, message = "username must be between 3 and 30 characters")
+    @Column(unique = true)
     private String username;
 
     @NotBlank(message = "password cannot be required")
-    @Size(min = 10, max = 50, message = "password must be between 10 and 50 characters")
+    @Size(min = 10, max = 100, message = "password must be between 10 and 100 characters")
     private String password;
 
     @Enumerated(EnumType.STRING)

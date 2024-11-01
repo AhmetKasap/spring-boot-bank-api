@@ -1,6 +1,7 @@
 package com.banking.bank.exception;
 
 import org.springframework.core.annotation.Order;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +26,15 @@ public class SpesificExceptionHandler {
         }
 
         ErrorResponse errorResponse = new ErrorResponse(400, "Validation Error", errors);
+        return ResponseEntity.status(400).body(errorResponse);
+    }
+
+    // ENTITIY VALIDATIONS
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        //ErrorResponse errorResponse = new ErrorResponse(400, "Data Integrity Violation", Collections.singletonMap("error", ex.getMessage()));
+        ErrorResponse errorResponse = new ErrorResponse(400, "Data Integrity Violation");
+
         return ResponseEntity.status(400).body(errorResponse);
     }
 }
