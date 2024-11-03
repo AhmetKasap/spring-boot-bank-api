@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: bank
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bank-api
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 5000
+
+jwt:
+  secret: "yWJ2qIu4FfHpSz5TQ8Ty6vPlPz1sLCJeTj8LQz9mE8Uq8H2tYv4U8A4g6X8N4F8"
