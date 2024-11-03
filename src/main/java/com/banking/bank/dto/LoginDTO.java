@@ -11,14 +11,15 @@ public class LoginDTO {
     @Size(min = 10, max = 50, message = "password must be between 10 and 50 characters")
     private String password;
 
-    @NotBlank(message = "username cannot be required")
-    @Size(min = 3, max = 30, message = "username must be between 3 and 30 characters")
-    private String username;
+    @NotBlank(message = "email cannot be required")
+    @Size(min = 3, max = 45, message = "email must be between 3 and 45 characters")
+    @Email(message = "Email should be valid")
+    private String email;
 
 
     public UserEntity toEntity() {
         UserEntity user = new UserEntity();
-        user.setUsername(this.username);
+        user.setEmail(this.email);
         user.setPassword(this.password);
 
         return user;

@@ -4,11 +4,9 @@ import com.banking.bank.dto.LoginDTO;
 import com.banking.bank.dto.RegisterDTO;
 import com.banking.bank.enums.Role;
 import com.banking.bank.exception.APIError;
+import com.banking.bank.jwt.JwtService;
 import com.banking.bank.model.UserEntity;
 import com.banking.bank.repositories.UserRepository;
-import com.banking.bank.response.GenericResponse;
-import jakarta.validation.Valid;
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -46,9 +44,9 @@ public class AuthService {
     public String login(LoginDTO loginDTO) {
         UserEntity user = loginDTO.toEntity();
 
-        Optional<UserEntity> foundUser = userRepository.findByUsername(user.getUsername());
+        Optional<UserEntity> foundUser = userRepository.findByEmail(user.getEmail());
         if (foundUser.isPresent()) {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
             String token = jwtService.generateToken(foundUser.get());
             return token;
         }
@@ -57,46 +55,6 @@ public class AuthService {
         }
 
     }
-
-
-
-
-
-
-
-
-    /*
-    * public RegisterDTO register(RegisterDTO userDTO) {
-        UserEntity user = userDTO.toEntity();
-
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-
-        user.setRole(Role.USER);
-
-
-        Optional<UserEntity> foundUser = userRepository.findByUsername(user.getUsername());
-        if (foundUser.isPresent()) {
-            return foundUser.get().toDTO();
-        }
-        userRepository.save(user);
-        return user.toDTO();
-    }
-
-
-
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * */
-
-
 
 
 
