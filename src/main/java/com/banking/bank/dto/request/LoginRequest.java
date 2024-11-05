@@ -1,11 +1,13 @@
-package com.banking.bank.dto;
+package com.banking.bank.dto.request;
 
 import com.banking.bank.model.UserEntity;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class LoginDTO {
+public class LoginRequest {
 
     @NotBlank(message = "password cannot be required")
     @Size(min = 10, max = 50, message = "password must be between 10 and 50 characters")
@@ -17,11 +19,4 @@ public class LoginDTO {
     private String email;
 
 
-    public UserEntity toEntity() {
-        UserEntity user = new UserEntity();
-        user.setEmail(this.email);
-        user.setPassword(this.password);
-
-        return user;
-    }
 }

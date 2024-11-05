@@ -1,17 +1,17 @@
 package com.banking.bank.model;
 
-import com.banking.bank.dto.RegisterDTO;
+import com.banking.bank.dto.request.RegisterRequest;
 import com.banking.bank.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -49,6 +49,14 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     Role role;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<AccountEntity> accounts = new ArrayList<>();
+
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {//"rolleri dönüyoruz
@@ -78,14 +86,5 @@ public class UserEntity implements UserDetails {
 
 
 
-    public RegisterDTO toDTO() {
-        RegisterDTO dto = new RegisterDTO();
-        dto.setFirstName(this.firstName);
-        dto.setLastName(this.lastName);
-        dto.setEmail(this.email);
-        dto.setUsername(this.username);
-        dto.setPassword(this.password);
 
-        return dto;
-    }
 }

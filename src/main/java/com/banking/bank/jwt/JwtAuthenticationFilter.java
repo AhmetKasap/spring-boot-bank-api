@@ -1,5 +1,7 @@
 package com.banking.bank.jwt;
 
+import com.banking.bank.exception.APIError;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,8 +36,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         token = header.substring(7);
         username = jwtService.findUsername(token);
 
-
-
         if (username != null && SecurityContextHolder.getContext().getAuthentication()==null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if(jwtService.tokenControl(token, userDetails)){
@@ -44,7 +44,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
+            }
+            else {
+                throw new APIError(401,"Unauthorized");
             }
         }
 

@@ -1,12 +1,13 @@
 package com.banking.bank.controllers;
 
-import com.banking.bank.dto.LoginDTO;
-import com.banking.bank.dto.RegisterDTO;
+import com.banking.bank.dto.request.LoginRequest;
+import com.banking.bank.dto.request.RegisterRequest;
+import com.banking.bank.dto.response.RegisterResponse;
 import com.banking.bank.response.GenericResponse;
 import com.banking.bank.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.Data;
-import org.springframework.http.ResponseEntity;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -18,17 +19,20 @@ import java.util.Map;
 public class AuthController {
 
     private final AuthService authService;
+    private final ModelMapper modelMapper;
 
     @PostMapping("/register")
-    public GenericResponse<RegisterDTO> register(@Valid @RequestBody RegisterDTO registerDTO) {
-        RegisterDTO registered = authService.register(registerDTO);
-        return GenericResponse.ok(registered,"registration created successfully");
+    public GenericResponse<RegisterResponse> register(@Valid @RequestBody RegisterRequest registerRequest) {
+        RegisterRequest registered = authService.register(registerRequest);
+        RegisterResponse response = modelMapper.map(registered, RegisterResponse.class);
+
+        return GenericResponse.ok(response,"registration created successfully");
 
     }
 
     @PostMapping("/login")
-    public GenericResponse<Map<String, String>> login(@RequestBody LoginDTO loginDTO) {
-        String token = authService.login(loginDTO);
+    public GenericResponse<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
+        String token = authService.login(loginRequest);
 
         Map<String, String> result = new HashMap<>();
         result.put("token", token);

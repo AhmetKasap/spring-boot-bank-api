@@ -13,7 +13,7 @@ public class AccountEntity {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     AccountType accountType;
@@ -23,8 +23,9 @@ public class AccountEntity {
 
     private BigDecimal balance;
 
-
-
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
 
 }

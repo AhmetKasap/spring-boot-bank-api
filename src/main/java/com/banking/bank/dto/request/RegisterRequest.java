@@ -1,12 +1,14 @@
-package com.banking.bank.dto;
+package com.banking.bank.dto.request;
 
+import com.banking.bank.dto.response.RegisterResponse;
 import com.banking.bank.model.UserEntity;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class RegisterDTO {
-
+public class RegisterRequest {
     @NotBlank(message = "firstName cannot be required")
     @Size(min = 3, max = 30, message = "firstName must be between 3 and 30 characters")
     private String firstName;
@@ -30,14 +32,5 @@ public class RegisterDTO {
     private String username;
 
 
-    public UserEntity toEntity() {
-        UserEntity user = new UserEntity();
-        user.setFirstName(this.firstName);
-        user.setLastName(this.lastName);
-        user.setEmail(this.email);
-        user.setPassword(this.password);
-        user.setUsername(this.username);
-        return user;
-    }
 
 }
