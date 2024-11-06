@@ -1,6 +1,6 @@
 package com.banking.bank.dto.request;
 
-import com.banking.bank.enums.AccountType;
+import com.banking.bank.model.enums.AccountType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Data;

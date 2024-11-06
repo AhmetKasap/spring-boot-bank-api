@@ -1,7 +1,7 @@
 package com.banking.bank.model;
 
-import com.banking.bank.dto.request.RegisterRequest;
-import com.banking.bank.enums.Role;
+import com.banking.bank.model.enums.Role;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -50,6 +50,7 @@ public class UserEntity implements UserDetails {
     Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<AccountEntity> accounts = new ArrayList<>();
 
 

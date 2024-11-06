@@ -1,4 +1,4 @@
-package com.banking.bank.exception;
+package com.banking.bank.utils.exception;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;

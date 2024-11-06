@@ -3,7 +3,7 @@ package com.banking.bank.controllers;
 import com.banking.bank.dto.request.LoginRequest;
 import com.banking.bank.dto.request.RegisterRequest;
 import com.banking.bank.dto.response.RegisterResponse;
-import com.banking.bank.response.GenericResponse;
+import com.banking.bank.utils.response.GenericResponse;
 import com.banking.bank.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.Data;

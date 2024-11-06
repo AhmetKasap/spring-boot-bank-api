@@ -1,10 +1,11 @@
 package com.banking.bank.controllers;
 
 import com.banking.bank.dto.request.CreateAccountRequest;
-import com.banking.bank.dto.request.RegisterRequest;
 import com.banking.bank.dto.response.CreateAccountResponse;
+import com.banking.bank.dto.response.GetAccountResponse;
+import com.banking.bank.model.AccountEntity;
 import com.banking.bank.model.UserEntity;
-import com.banking.bank.response.GenericResponse;
+import com.banking.bank.utils.response.GenericResponse;
 import com.banking.bank.service.AccountService;
 import com.banking.bank.service.AuthService;
 import jakarta.validation.Valid;
@@ -13,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Data
 @RestController
@@ -26,7 +29,7 @@ public class AccountController {
 
 
     @PostMapping("")
-    public GenericResponse createAccount (@Valid @RequestBody CreateAccountRequest createAccountRequest) {
+    public GenericResponse<CreateAccountResponse> createAccount (@Valid @RequestBody CreateAccountRequest createAccountRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
@@ -35,6 +38,33 @@ public class AccountController {
         CreateAccountResponse result = accountService.createAccount(createAccountRequest, user);
 
         return GenericResponse.ok(result, "successfully");
+    }
+
+
+    @GetMapping("")
+    public GenericResponse <List> getAccountsByUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        UserEntity user = authService.findByEmail(username);
+
+        List result =  accountService.getAccountByUsername(user);
+
+        return GenericResponse.ok(result,"accounts listed");
+
+    }
+
+    @DeleteMapping("/{accountId}")
+    public GenericResponse<AccountEntity> deleteAccount(@PathVariable Long accountId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        UserEntity user = authService.findByEmail(username);
+
+        AccountEntity result = accountService.deleteAccount(user.getId(), accountId);
+
+        return GenericResponse.ok(result, "account successfully closed");
+
     }
 
 

@@ -1,4 +1,4 @@
-package com.banking.bank.jwt;
+package com.banking.bank.helpers.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

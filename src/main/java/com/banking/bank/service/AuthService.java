@@ -2,9 +2,9 @@ package com.banking.bank.service;
 
 import com.banking.bank.dto.request.LoginRequest;
 import com.banking.bank.dto.request.RegisterRequest;
-import com.banking.bank.enums.Role;
-import com.banking.bank.exception.APIError;
-import com.banking.bank.jwt.JwtService;
+import com.banking.bank.model.enums.Role;
+import com.banking.bank.utils.exception.APIError;
+import com.banking.bank.helpers.jwt.JwtService;
 import com.banking.bank.model.UserEntity;
 import com.banking.bank.repositories.UserRepository;
 import lombok.Data;

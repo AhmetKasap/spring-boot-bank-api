@@ -11,8 +11,11 @@ spring:
     hibernate:
       ddl-auto: update
 
+
 server:
   port: 5000
+  servlet:
+    context-path: /api/v1
 
 jwt:
   secret: "yWJ2qIu4FfHpSz5TQ8Ty6vPlPz1sLCJeTj8LQz9mE8Uq8H2tYv4U8A4g6X8N4F8"

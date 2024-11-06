@@ -8,11 +8,14 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class CreateAccountResponse {
+public class GetAccountResponse {
+
+    private Long accountId;
+
+    private String accountNumber;
+    private BigDecimal balance;
+
     @Enumerated(EnumType.STRING)
     AccountType accountType;
 
-    private long accountNumber;
-
-    private BigDecimal balance;
 }

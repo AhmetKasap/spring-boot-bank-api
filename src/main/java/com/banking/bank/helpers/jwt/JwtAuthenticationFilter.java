@@ -1,7 +1,6 @@
-package com.banking.bank.jwt;
+package com.banking.bank.helpers.jwt;
 
-import com.banking.bank.exception.APIError;
-import io.jsonwebtoken.ExpiredJwtException;
+import com.banking.bank.utils.exception.APIError;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

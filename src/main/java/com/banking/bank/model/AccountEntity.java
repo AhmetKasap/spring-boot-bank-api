@@ -1,6 +1,7 @@
 package com.banking.bank.model;
 
-import com.banking.bank.enums.AccountType;
+import com.banking.bank.model.enums.AccountType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,19 +13,20 @@ import java.math.BigDecimal;
 public class AccountEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
     AccountType accountType;
 
     @Column(unique=true)
-    private long accountNumber;
+    private String accountNumber;
 
     private BigDecimal balance;
 
     @ManyToOne()
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private UserEntity user;
 
 

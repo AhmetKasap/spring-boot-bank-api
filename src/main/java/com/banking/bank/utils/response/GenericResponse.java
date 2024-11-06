@@ -1,4 +1,4 @@
-package com.banking.bank.response;
+package com.banking.bank.utils.response;
 
 import lombok.*;
 
