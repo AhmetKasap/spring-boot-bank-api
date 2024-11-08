@@ -2,6 +2,7 @@ package com.banking.bank.service;
 
 import com.banking.bank.dto.request.TransactionRequest;
 import com.banking.bank.dto.response.GetAccountResponse;
+import com.banking.bank.dto.response.TransactionsResponse;
 import com.banking.bank.model.AccountEntity;
 import com.banking.bank.model.TransactionEntity;
 import com.banking.bank.model.UserEntity;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Service
@@ -53,6 +55,13 @@ public class TransactionService {
         transactionRepository.save(transactionEntity);
 
         return true;
+
+    }
+
+    public List getTransactionsByUserId(Long userId) {
+        List transactionEntity = transactionRepository.findByUserId(userId);
+
+        return transactionEntity;
 
     }
 
