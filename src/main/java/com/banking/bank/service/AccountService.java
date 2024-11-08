@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,6 +67,29 @@ public class AccountService {
         return accountEntity;
 
     }
+
+    public GetAccountResponse getAccountByAccountNumber(String accountNumber) {
+
+        AccountEntity account = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new APIError(404,"account number not found"));
+
+        return modelMapper.map(account, GetAccountResponse.class);
+    }
+
+    public Boolean isThereAmount(String accountNumber, BigDecimal amount) {
+
+        AccountEntity accountEntity = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new APIError(404,"account number not found"));
+
+        BigDecimal balance = accountEntity.getBalance();
+
+        if (balance.compareTo(amount) >= 0) {
+            return true;
+        } else {
+            throw new APIError(400, "not enough account balance");
+        }
+    }
+
 
 
 
