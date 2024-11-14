@@ -8,6 +8,7 @@ import com.banking.bank.model.UserEntity;
 import com.banking.bank.utils.response.GenericResponse;
 import com.banking.bank.service.AccountService;
 import com.banking.bank.service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
@@ -28,6 +29,7 @@ public class AccountController {
     private final ModelMapper modelMapper;
 
 
+    @Operation
     @PostMapping("")
     public GenericResponse<CreateAccountResponse> createAccount (@Valid @RequestBody CreateAccountRequest createAccountRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -39,7 +41,6 @@ public class AccountController {
 
         return GenericResponse.ok(result, "successfully");
     }
-
 
     @GetMapping("")
     public GenericResponse <List> getAccountsByUsername() {

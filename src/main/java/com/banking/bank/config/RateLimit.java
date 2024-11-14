@@ -40,7 +40,7 @@ public class RateLimit extends OncePerRequestFilter {
 
         Bucket bucket = userBuckets.computeIfAbsent(requestUrl, key ->
                 Bucket4j.builder()
-                        .addLimit(io.github.bucket4j.Bandwidth.simple(limit, Duration.ofMinutes(15))) 
+                        .addLimit(io.github.bucket4j.Bandwidth.simple(limit, Duration.ofMinutes(15)))
                         .build()
         );
 
